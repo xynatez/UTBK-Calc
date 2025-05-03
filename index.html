@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculation System - Static Version</title>
+    <!-- Link ke file CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Link Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Tambahkan CDN Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>// ADVANCED CALCULATION SYSTEM //</h1>
+        <p>Static Web Version (GitHub Pages Ready)</p>
+    </header>
+
+    <main class="container">
+        <!-- Form utama -->
+        <form id="calculator-form">
+            <!-- Bagian Konfigurasi -->
+            <section class="control-section card">
+                <h2>Configuration</h2>
+                <div class="form-group">
+                    <label for="year-select">Algorithm Year:</label>
+                    <select id="year-select" name="year" required>
+                        <option value="2025" selected>2025 (Current Standard)</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Calculation Mode:</label>
+                    <div class="radio-group">
+                        <input type="radio" id="mode1" name="mode" value="1" checked>
+                        <label for="mode1">Score from Correct Answers</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="mode2" name="mode" value="2">
+                        <label for="mode2">Correct Answers from Score</label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bagian Input Data -->
+            <section class="input-section card">
+                <h2>Input Data</h2>
+                <div id="input-fields-container">
+                    <p class="placeholder-text">Select year and mode to load input fields.</p>
+                </div>
+            </section>
+
+            <!-- Tombol Calculate & Loading -->
+             <div class="form-actions">
+                <button type="submit" id="calculate-button" class="button-primary">Calculate</button>
+                <div id="loading-indicator" class="loading" style="display: none;">
+                     <div class="spinner"></div> Processing...
+                </div>
+             </div>
+        </form>
+
+        <!-- Bagian Hasil -->
+        <section id="results-section" class="results-section card" style="display: none;">
+            <h2>Calculation Analysis</h2>
+            <div id="error-message" class="error-message" style="display: none;"></div>
+            <div class="results-grid">
+                <!-- Kolom Kiri: Grafik & Catatan -->
+                <div class="results-column">
+                    <h3>Score Distribution per Subtest</h3>
+                    <div class="chart-container">
+                        <canvas id="scoreChart"></canvas>
+                    </div>
+                    <div class="analysis-note">
+                        <h4>Note on Analysis:</h4>
+                         <p>
+                            Scores are calculated based on predefined formulas. The chart and quartiles visualize your performance distribution based on these formulas.
+                        </p>
+                        <p style="margin-top: 0.5rem;">
+                            Quartiles (Q1, Median, Q3) divide your <strong>ordered</strong> scores into four groups with an equal number of subtests. The <strong>range</strong> between them reflects the spread of your scores. A wider range indicates more variability in that section of the distribution.
+                        </p>
+                    </div>
+                </div>
+                <!-- Kolom Kanan: Tabel & Ringkasan -->
+                <div class="results-column">
+                    <h3>Detailed Results</h3>
+                    <div class="table-container">
+                        <table id="results-table">
+                             <thead>
+                                <tr>
+                                    <th>Subtest</th>
+                                    <th>Score</th>
+                                    <th>Correct</th>
+                                    <th>Total Qs</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <h3>Statistical Summary</h3>
+                    <div id="summary-output" class="summary-output">
+                        <div class="summary-item">
+                            <span class="summary-label">Total Score:</span>
+                            <span id="summary-total-score" class="summary-value">N/A</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Average Score (Processed):</span>
+                            <span id="summary-average-score" class="summary-value">N/A</span>
+                        </div>
+                         <div class="summary-item">
+                            <span class="summary-label">Total Correct / Total Qs:</span>
+                             <span id="summary-correct-vs-total" class="summary-value">N/A</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Overall % Correct:</span>
+                            <span id="summary-percentage" class="summary-value">N/A</span>
+                        </div>
+                        <h4>Score Distribution Quartiles:</h4>
+                        <div class="summary-item">
+                             <span class="summary-label">Quartile 1 (Q1 - 25th %ile):</span>
+                             <span id="summary-q1" class="summary-value">N/A</span>
+                         </div>
+                         <div class="summary-item">
+                             <span class="summary-label">Median (Q2 - 50th %ile):</span>
+                             <span id="summary-median" class="summary-value">N/A</span>
+                         </div>
+                         <div class="summary-item">
+                             <span class="summary-label">Quartile 3 (Q3 - 75th %ile):</span>
+                             <span id="summary-q3" class="summary-value">N/A</span>
+                        </div>
+                         <small>(Calculated from valid subtest scores entered/derived)</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Advanced Calculation System</p>
+    </footer>
+
+    <!-- Link ke file JavaScript (pastikan ini di akhir body) -->
+    <script src="script.js"></script>
+</body>
+</html>
